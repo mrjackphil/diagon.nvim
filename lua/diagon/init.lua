@@ -75,8 +75,20 @@ function M.generate_diagram(type, pattern)
 end
 
 function M.run()
-	M.generate_diagram("Sequence", "()```sequence%s*([%a]*)%s*\n(.-)\n?```()")
-	M.generate_diagram("Math", "()```math%s*([%a]*)%s*\n(.-)\n?```()")
+	local generators = {
+		"Math",
+		"Sequence",
+		"Tree",
+		"Table",
+		"Grammar",
+		"Frame",
+		"GraphDAG",
+		"Flowchart",
+	}
+
+	for _, gen in pairs(generators) do
+		M.generate_diagram(gen, "()```" .. string.lower(gen) .. "%s*([%a]*)%s*\n(.-)\n?```()")
+	end
 end
 
 cmd("Diagon", function()
